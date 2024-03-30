@@ -20,6 +20,7 @@
         v-for="(item, index) in tagList"
         :key="index"
         @click="handleMobileMenu(item)"
+        class="mobile-menu-list"
       >
         <h3>{{ item }}</h3>
       </div>
@@ -82,5 +83,11 @@ const handleMobileMenu = (value: string) => {
 
 .menu-heading {
   font-weight: bolder;
+}
+
+.mobile-menu-list:active {
+  background-color: lemonchiffon;
+  border-radius: 10px;
+  padding: 0.1px 4px;
 }
 </style>
