@@ -7,7 +7,7 @@
       :data="item"
       @deleteItem="(value) => (todos.response_data = deleteItem(value, todos))"
       @updateItem="
-        (value, item) => (todos.response_data = updateItem(value, todos, item))
+        (value, item) => (todos.response_data = updateItem(value, todos))
       "
     />
   </div>

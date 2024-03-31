@@ -5,6 +5,7 @@ export const useAppStore = defineStore({
   id: "app-store",
   state: () => ({
     tags: [] as storeType[],
+    isTagModel: false,
   }),
   actions: {
     addTags(value: storeType) {
@@ -12,6 +13,9 @@ export const useAppStore = defineStore({
     },
     populateTags(value: storeType[]) {
       this.tags = value;
+    },
+    toggleTagModel(value: boolean) {
+      this.isTagModel = value;
     },
   },
   getters: {

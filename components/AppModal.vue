@@ -34,7 +34,7 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{ name: string; isUpdated: boolean }>();
+defineProps<{ name: string; isUpdated?: boolean }>();
 </script>
 
 <style scoped>

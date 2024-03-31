@@ -1,5 +1,20 @@
 <template>
   <div>
+    <button class="tag-btn" @click="handleOpenModel">Add Tag</button>
+    <AppModal
+      v-if="isTagModel"
+      @closeModal="(value) => handleCloseModel(value)"
+      @handleCreate="handleCreateTag"
+      name="Tag"
+    >
+      <div>
+        <h4>Create tag</h4>
+        <div class="tag-input">
+          <label>Title</label>
+          <input v-model="tagTitle" />
+        </div>
+      </div>
+    </AppModal>
     <AppList
       v-for="item in tags?.response_data"
       :key="item.id"
@@ -12,7 +27,68 @@
 </template>
 
 <script setup lang="ts">
+import { useAppStore } from "~/store/app-store";
+import { storeToRefs } from "pinia";
+
+const appStore = useAppStore();
+const { isTagModel } = storeToRefs(appStore);
+const { toggleTagModel, addTags } = appStore;
 const { data: tags, pending, error } = useAppFetch("/tags/tag-list/") as any;
+
+const tagTitle = ref("");
+
+const handleOpenModel = () => {
+  toggleTagModel(true);
+};
+
+const handleCloseModel = (value: boolean) => {
+  toggleTagModel(value);
+};
+
+const handleCreateTag = async () => {
+  try {
+    const result = await $fetch("http://127.0.0.1:8000/api/tags/create-tag/", {
+      method: "post",
+      body: { title: tagTitle.value },
+    });
+    tags.value.response_data = [
+      (result as any).response_data,
+      ...tags.value.response_data,
+    ];
+    addTags({
+      id: (result as any).response_data.id,
+      name: (result as any).response_data.title,
+    });
+    toggleTagModel(false);
+  } catch (err) {
+    console.log("🚀 ~ handleCreateTag ~ err:", err);
+  }
+};
 </script>
 
-<style scoped></style>
+<style scoped>
+.tag-btn {
+  padding: 0.3rem 0.6rem;
+  border-radius: 5px;
+  border: 1px solid black;
+  background-color: blanchedalmond;
+  cursor: pointer;
+}
+
+.tag-input {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3em;
+  margin-bottom: 1em;
+}
+
+.tag-input > label {
+  font-weight: bolder;
+}
+
+.tag-input > input {
+  padding: 0.2em 0;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+</style>

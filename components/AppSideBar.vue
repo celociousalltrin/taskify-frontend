@@ -37,7 +37,7 @@
       >
         {{ item.name }}
       </p>
-      <button class="tag-add-btn">
+      <button class="tag-add-btn" @click="handleAdd">
         <Icon name="material-symbols:add" size="26" />
         Add
       </button>
@@ -52,12 +52,18 @@ import { storeToRefs } from "pinia";
 
 const appStore = useAppStore();
 const { tagList } = storeToRefs(appStore);
+const { toggleTagModel } = appStore;
 
 type TSideBarType = {
   sideBarName: RouteRecordName | null | undefined;
 };
 
 defineProps<TSideBarType>();
+
+const handleAdd = () => {
+  navigateTo("/tags");
+  toggleTagModel(true);
+};
 </script>
 
 <style scoped>

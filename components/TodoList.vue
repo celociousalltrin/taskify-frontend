@@ -8,7 +8,7 @@
     <p :class="priorityClass" class="priority">{{ priority }}</p>
     <p class="created-at">{{ convertDate(created_at) }}</p>
     <slot class="btn" />
-    <div class="tick-icon-container" @click="handleComplete(id)">
+    <div class="tick-icon-container" @click="handleComplete(id, is_completed)">
       <Icon
         name="teenyicons:tick-circle-solid"
         :class="{
@@ -39,7 +39,7 @@ const priorityClass = computed(() => {
   }
 });
 
-const handleComplete = async (id: number) => {
+const handleComplete = async (id: number, value: boolean) => {
   try {
     await $fetch(`http://127.0.0.1:8000/api/todos/update-todo/${id}`, {
       method: "put",

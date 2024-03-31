@@ -18,12 +18,16 @@
         </button>
       </TodoList>
     </div>
-    <TagList v-bind="data" v-else>
-      <button @click="$emit('updateItem', data)" class="upd-btn">Update</button>
-      <button @click="$emit('deleteItem', data.id)" class="btn-del">
-        Delete
-      </button>
-    </TagList>
+    <div class="lst-container" v-else>
+      <TagList v-bind="data">
+        <button @click="$emit('updateItem', data)" class="upd-btn">
+          Update
+        </button>
+        <button @click="$emit('deleteItem', data.id)" class="btn-del">
+          Delete
+        </button>
+      </TagList>
+    </div>
   </div>
 </template>
 
