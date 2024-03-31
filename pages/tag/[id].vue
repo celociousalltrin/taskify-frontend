@@ -9,8 +9,7 @@
         (value) => (tagTodos.response_data = deleteItem(value, tagTodos))
       "
       @updateItem="
-        (value, item) =>
-          (tagTodos.response_data = updateItem(value, tagTodos, item))
+        (value) => (tagTodos.response_data = updateItem(tagTodos, value))
       "
     />
   </div>

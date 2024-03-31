@@ -18,6 +18,7 @@ export type TList = {
 export type TListType = {
   data: TList;
   isTodoList: boolean;
+  isActionTodo?: boolean;
 };
 
 export type todoType = {

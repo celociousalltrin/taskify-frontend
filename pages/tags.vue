@@ -6,9 +6,7 @@
       :isTodoList="false"
       :data="item"
       @deleteItem="(value) => (tags.response_data = deleteItem(value, tags))"
-      @updateItem="
-        (value, item) => (tags.response_data = updateItem(value, tags, item))
-      "
+      @updateItem="(value) => (tags.response_data = updateItem(tags, value))"
     />
   </div>
 </template>

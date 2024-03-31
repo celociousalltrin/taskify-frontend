@@ -12,7 +12,7 @@
         "
         @updateItem="
           (value, item) =>
-            (tomTodos.response_data = updateItem(value, tomTodos, item))
+            (tomTodos.response_data = updateItem(tomTodos, value))
         "
       />
     </div>
@@ -28,7 +28,7 @@
         "
         @updateItem="
           (value, item) =>
-            (weekTodos.response_data = updateItem(value, weekTodos, item))
+            (weekTodos.response_data = updateItem(weekTodos, value))
         "
       />
     </div>
@@ -44,7 +44,7 @@
         "
         @updateItem="
           (value, item) =>
-            (monthTodos.response_data = updateItem(value, monthTodos, item))
+            (monthTodos.response_data = updateItem(monthTodos, value))
         "
       />
     </div>
