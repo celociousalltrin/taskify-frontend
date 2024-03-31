@@ -34,6 +34,7 @@ export const AppSideBarData1 = [
     route: "tags",
   },
 ];
+
 export const AppSideBarData2 = [
   { id: 1, iconName: "f7:calendar-today", route: "today" },
   {
@@ -41,4 +42,15 @@ export const AppSideBarData2 = [
     iconName: "material-symbols:event-upcoming-outline-rounded",
     route: "upcoming",
   },
+];
+
+export const priorityFilterData = [
+  { id: "low", value: "Low" },
+  { id: "medium", value: "Medium" },
+  { id: "high", value: "High" },
+];
+
+export const completedFilterData = [
+  { id: "True", value: "Completed" },
+  { id: "False", value: "Not Completed" },
 ];

@@ -30,7 +30,9 @@ const handleToogleMobileMenu = (value: boolean) => {
 
 const paramsName = () => {
   return String(
-    (route.name as string)?.endsWith("id") ? route.params.id : route.name
+    (route.name as string)?.endsWith("id")
+      ? (route.params.id as string).split("-")[0]
+      : route.name
   );
 };
 </script>
@@ -44,13 +46,13 @@ const paramsName = () => {
   position: sticky;
   top: 0;
   width: 100%;
-  background-color: beige;
+  background-color: #f4f4f4;
   padding: 0.1em 0;
   border-radius: 5px;
 }
 
 .app-footer {
-  background-color: beige;
+  background-color: #f4f4f4;
   position: fixed;
   bottom: -0.4%;
   width: 97%;

@@ -22,7 +22,7 @@
       <div
         v-for="(item, index) in tagList"
         :key="index"
-        @click="handleMobileMenu(item)"
+        @click="handleMobileMenu(item.name)"
         class="mobile-menu-list"
       >
         <h3>{{ item }}</h3>
@@ -89,7 +89,7 @@ const handleMobileMenu = (value: string) => {
 }
 
 .mobile-menu-list:active {
-  background-color: lemonchiffon;
+  background-color: #f4f4f4;
   border-radius: 10px;
   padding: 0.1px 4px;
 }

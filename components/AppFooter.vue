@@ -29,9 +29,10 @@ const handleClick = (data: TSingleFooter) => {
 }
 
 .active-footer {
-  background-color: #c2c2ae;
+  background-color: rgb(237, 237, 197);
   color: black;
   padding: 0.2em;
   border-radius: 10px;
+  border: 1px solid black;
 }
 </style>

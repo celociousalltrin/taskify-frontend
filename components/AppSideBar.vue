@@ -29,13 +29,13 @@
     <h4>TAGS</h4>
     <div class="tag-container">
       <p
-        v-for="(item, index) in tagList"
-        :key="index"
-        @click="navigateTo(`/tag/${item}`)"
+        v-for="item in tagList"
+        :key="item.id"
+        @click="navigateTo(`/tag/${item.name.toLowerCase()}-${item.id}`)"
         class="sidebar-tag"
-        :class="{ 'tag-active': sideBarName === item }"
+        :class="{ 'tag-active': sideBarName === item.name }"
       >
-        {{ item }}
+        {{ item.name }}
       </p>
       <button class="tag-add-btn">
         <Icon name="material-symbols:add" size="26" />
