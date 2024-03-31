@@ -4,7 +4,7 @@ import { defineStore } from "pinia";
 export const useAppStore = defineStore({
   id: "app-store",
   state: () => ({
-    tags: ["Personal", "Work"] as string[],
+    tags: ["Personal", "Work", "personal"] as string[],
   }),
   actions: {
     addTags(value: string) {

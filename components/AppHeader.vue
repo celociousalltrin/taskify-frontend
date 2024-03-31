@@ -1,10 +1,13 @@
 <template>
   <div class="container" v-if="!isMobileMenu">
-    <h2>{{ (headername as string)?.toUpperCase() }}</h2>
+    <h2>
+      {{ (headername as string)?.toUpperCase() }}
+    </h2>
     <Icon
       name="radix-icons:hamburger-menu"
       size="36"
       @click="$emit('toggleMenu', true)"
+      class="menu-icon"
     />
   </div>
   <div class="mobile-menu-container" v-else>
@@ -89,5 +92,20 @@ const handleMobileMenu = (value: string) => {
   background-color: lemonchiffon;
   border-radius: 10px;
   padding: 0.1px 4px;
+}
+
+@media (min-width: 576px) {
+}
+@media (min-width: 768px) {
+}
+@media (min-width: 992px) {
+  .mobile-menu-container {
+    display: none;
+  }
+  .menu-icon {
+    display: none;
+  }
+}
+@media (min-width: 1200px) {
 }
 </style>
