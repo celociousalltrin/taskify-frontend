@@ -20,12 +20,12 @@
     <div>
       <h2 class="menu-heading">Tags</h2>
       <div
-        v-for="(item, index) in tagList"
-        :key="index"
-        @click="handleMobileMenu(item.name)"
+        v-for="item in tagList"
+        :key="item.id"
+        @click="handleMobileMenu(item)"
         class="mobile-menu-list"
       >
-        <h3>{{ item }}</h3>
+        <h3>{{ item.name }}</h3>
       </div>
     </div>
   </div>
@@ -48,8 +48,8 @@ type THeaderPropsType = {
 };
 defineProps<THeaderPropsType>();
 
-const handleMobileMenu = (value: string) => {
-  navigateTo(`/tag/${value}`);
+const handleMobileMenu = (item: Record<string, any>) => {
+  navigateTo(`/tag/${item.name.toLowerCase()}-${item.id}`);
   emit("toggleMenu", false);
 };
 </script>

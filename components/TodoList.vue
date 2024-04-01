@@ -23,6 +23,7 @@
 
 <script setup lang="ts">
 import type { TList } from "../utils/common-types";
+import { toast } from "vue3-toastify";
 
 const updatedIds = ref<number[]>([]);
 
@@ -46,6 +47,9 @@ const handleComplete = async (id: number, value: boolean) => {
       body: { is_completed: true },
     });
     updatedIds.value.push(id);
+    toast("Toddo Completed!", {
+      autoClose: 1000,
+    });
   } catch (err) {
     console.log("🚀 ~ handleComplete ~ err:", err);
   }

@@ -1,4 +1,5 @@
 <template>
+  <h1 v-if="pending" class="loading-style">Loading.....</h1>
   <div>
     <button @click="handleOpenModel" class="todo-btn">Add Todo</button>
     <AppModal
@@ -8,6 +9,7 @@
       name="Todo"
       :isUpdated="isUpdated"
       @handleUpdate="handleUpdateTodo"
+      :isApiCall="isApiCall"
     >
       <TodoInput
         v-bind="todoObj"
@@ -49,12 +51,14 @@
 <script setup lang="ts">
 import { useAppStore } from "~/store/app-store";
 import { storeToRefs } from "pinia";
+import { toast } from "vue3-toastify";
 
 const appStore = useAppStore();
 const { tagList } = storeToRefs(appStore);
 
 const todoQuery = ref({});
 const isOpenModal = ref(false);
+const isApiCall = ref(false);
 
 let init = {
   title: "",
@@ -92,6 +96,7 @@ const handleChange = (name: keyof typeof init, value: any) => {
 };
 
 const handleCreateTodo = async () => {
+  isApiCall.value = true;
   try {
     const result = await $fetch(
       "http://127.0.0.1:8000/api/todos/create-todo/",
@@ -112,8 +117,13 @@ const handleCreateTodo = async () => {
     ];
     isOpenModal.value = false;
     isUpdated.value = false;
+    toast("Toddo Created Successfully!", {
+      autoClose: 1000,
+    });
   } catch (err) {
     console.log("🚀 ~ handleCreateTodo ~ err:", err);
+  } finally {
+    isApiCall.value = false;
   }
 };
 
@@ -123,6 +133,9 @@ const handleDeleteItem = async (id: number) => {
       method: "put",
     });
     todos.value.response_data = deleteItem(id, todos.value);
+    toast("Toddo Deleted Successfully!", {
+      autoClose: 1000,
+    });
   } catch (err) {
     console.log("🚀 ~ handleDeleteItem ~ err:", err);
   }
@@ -137,6 +150,7 @@ const handleUpdate = (item: Record<string, any>) => {
 };
 
 const handleUpdateTodo = async () => {
+  isApiCall.value = true;
   try {
     const result = await await $fetch(
       `http://127.0.0.1:8000/api/todos/update-todo/${updatedId.value}`,
@@ -156,6 +170,8 @@ const handleUpdateTodo = async () => {
     isUpdated.value = false;
   } catch (err) {
     console.log("🚀 ~ handleUpdateTodo ~ err:", err);
+  } finally {
+    isApiCall.value = false;
   }
 };
 </script>
@@ -167,5 +183,20 @@ const handleUpdateTodo = async () => {
   border: 1px solid black;
   background-color: bisque;
   cursor: pointer;
+}
+
+.loading-style {
+  position: fixed;
+  background: rgba(0, 0, 0, 0.4);
+  width: 100vw;
+  height: 110vh;
+  top: -10%;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: aliceblue;
 }
 </style>

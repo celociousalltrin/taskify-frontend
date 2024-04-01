@@ -10,7 +10,7 @@
           @click="$emit('handleCreate')"
           v-if="!isUpdated"
         >
-          Create {{ name }}
+          {{ isApiCall ? "Creating" : "Create" }} {{ name }}
         </button>
         <button
           type="button"
@@ -18,7 +18,7 @@
           @click="$emit('handleUpdate')"
           v-else
         >
-          Update {{ name }}
+          {{ isApiCall ? "Updating" : "Update" }} {{ name }}
         </button>
 
         <button
@@ -34,7 +34,7 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{ name: string; isUpdated?: boolean }>();
+defineProps<{ name: string; isUpdated?: boolean; isApiCall: boolean }>();
 </script>
 
 <style scoped>

@@ -1,50 +1,60 @@
 <template>
-  <div>
+  <h1 v-if="pending">Loading.....</h1>
+  <div v-else>
     <div>
       <h1>Tommorrow TODO</h1>
       <AppList
-        v-for="item in tomTodos?.response_data"
+        v-for="item in data.tomTodos?.response_data"
         :key="item.id"
         :isTodoList="true"
         :data="item"
         @deleteItem="
-          (value) => (tomTodos.response_data = deleteItem(value, tomTodos))
+          (value) =>
+            (data.tomTodos.response_data = deleteItem(value, data.tomTodos))
         "
         @updateItem="
-          (value, item) =>
-            (tomTodos.response_data = updateItem(tomTodos, value))
+          (value) =>
+            (data.tomTodos.response_data = updateItem(data.tomTodos, value))
         "
       />
     </div>
     <div>
       <h1>Week TODO</h1>
       <AppList
-        v-for="item in weekTodos?.response_data"
+        v-for="item in data.weekTodos?.response_data"
         :key="item.id"
         :isTodoList="true"
         :data="item"
         @deleteItem="
-          (value) => (weekTodos.response_data = deleteItem(value, weekTodos))
+          (value) =>
+            (data.weekTodos.response_data = deleteItem(value, data.weekTodos))
         "
         @updateItem="
-          (value, item) =>
-            (weekTodos.response_data = updateItem(weekTodos, value))
+          (value) =>
+            (data.weekTodos.response_data = updateItem(data.weekTodos, value))
         "
       />
     </div>
     <div>
       <h1>Month TODO</h1>
       <AppList
-        v-for="item in monthTodos?.response_data"
+        v-for="item in data?.monthTodos?.response_data"
         :key="item.id"
         :isTodoList="true"
         :data="item"
         @deleteItem="
-          (value) => (monthTodos.response_data = deleteItem(value, monthTodos))
+          (value) =>
+            (data.monthTodos.response_data = deleteItem(
+              value,
+              data?.monthTodos
+            ))
         "
         @updateItem="
-          (value, item) =>
-            (monthTodos.response_data = updateItem(monthTodos, value))
+          (value) =>
+            (data.monthTodos.response_data = updateItem(
+              data?.monthTodos,
+              value
+            ))
         "
       />
     </div>
@@ -52,23 +62,14 @@
 </template>
 
 <script setup lang="ts">
-const {
-  data: tomTodos,
-  pending: tomPending,
-  error: tomError,
-} = useAppFetch("/todos/todo-list/?date=tommorrow") as any;
-
-const {
-  data: weekTodos,
-  pending: weekPending,
-  error: weekError,
-} = useAppFetch("/todos/todo-list/?date=week") as any;
-
-const {
-  data: monthTodos,
-  pending: monthPending,
-  error: monthError,
-} = useAppFetch("/todos/todo-list/?date=month") as any;
+const { data, pending } = useAsyncData("upcoming", async () => {
+  const [tomTodos, weekTodos, monthTodos] = (await Promise.all([
+    $fetch("http://127.0.0.1:8000/api/todos/todo-list/?date=tommorrow"),
+    $fetch("http://127.0.0.1:8000/api/todos/todo-list/?date=week"),
+    $fetch("http://127.0.0.1:8000/api/todos/todo-list/?date=month"),
+  ])) as any;
+  return { tomTodos, weekTodos, monthTodos };
+}) as any;
 </script>
 
 <style scoped></style>

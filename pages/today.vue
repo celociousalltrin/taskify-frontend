@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <h1 v-if="pending">Loading.....</h1>
+  <div v-else>
     <AppList
       v-for="item in todos?.response_data"
       :key="item.id"

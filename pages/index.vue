@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-for="item in result" :key="item">
-      <h1>Hi from vue This my name is celocious Altrin Mf</h1>
+      <h1>This is Index Page</h1>
     </div>
   </div>
 </template>
