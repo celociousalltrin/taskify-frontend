@@ -7,7 +7,7 @@
           class="upd-btn"
           v-if="isActionTodo"
         >
-          Update
+          Edit
         </button>
         <button
           @click="$emit('deleteItem', data.id)"

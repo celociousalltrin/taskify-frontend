@@ -10,7 +10,7 @@
           @click="$emit('handleCreate')"
           v-if="!isUpdated"
         >
-          {{ isApiCall ? "Creating" : "Create" }} {{ name }}
+          {{ isApiCall ? "Creating...." : `Create ${name}` }}
         </button>
         <button
           type="button"
@@ -18,7 +18,7 @@
           @click="$emit('handleUpdate')"
           v-else
         >
-          {{ isApiCall ? "Updating" : "Update" }} {{ name }}
+          {{ isApiCall ? "Updating...." : `Update  ${name}` }}
         </button>
 
         <button

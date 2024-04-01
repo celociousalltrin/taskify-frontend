@@ -1,5 +1,6 @@
 <template>
   <h1 v-if="pending" class="loading-style">Loading.....</h1>
+
   <div>
     <button @click="handleOpenModel" class="todo-btn">Add Todo</button>
     <AppModal
@@ -46,6 +47,7 @@
       :isActionTodo="true"
     />
   </div>
+  <h1 v-if="!todos?.response_data.length">No Data Found</h1>
 </template>
 
 <script setup lang="ts">
